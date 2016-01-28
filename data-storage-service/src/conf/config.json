@@ -1,0 +1,4 @@
+{
+  "db_name" : "osm",
+  "connection_string": "mongodb://localhost:27017"
+}

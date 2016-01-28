@@ -1,0 +1,15 @@
+= Cheatsheets
+
+[[Checkin]]
+== Checkin
+
+
+[cols=">25%,^25%,50%"]
+[frame="topbot"]
+|===
+^|Name | Type ^| Description
+|[[lat]]`lat`|`Number (double)`|-
+|[[lon]]`lon`|`Number (double)`|-
+|[[name]]`name`|`String`|-
+|===
+

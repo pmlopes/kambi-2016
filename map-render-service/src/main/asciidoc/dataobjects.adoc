@@ -1,0 +1,103 @@
+= Cheatsheets
+
+[[Member]]
+== Member
+
+++++
+ OSM Member
+++++
+'''
+
+[cols=">25%,^25%,50%"]
+[frame="topbot"]
+|===
+^|Name | Type ^| Description
+|[[next]]`next`|`link:dataobjects.html#Member[Member]`|-
+|[[node]]`node`|`link:dataobjects.html#Node[Node]`|-
+|[[role]]`role`|`String`|-
+|[[way]]`way`|`link:dataobjects.html#Way[Way]`|-
+|===
+
+[[Way]]
+== Way
+
+++++
+ OSM Way
+++++
+'''
+
+[cols=">25%,^25%,50%"]
+[frame="topbot"]
+|===
+^|Name | Type ^| Description
+|[[layer]]`layer`|`Number (int)`|-
+|[[maxLat]]`maxLat`|`Number (double)`|-
+|[[maxLon]]`maxLon`|`Number (double)`|-
+|[[minLat]]`minLat`|`Number (double)`|-
+|[[minLon]]`minLon`|`Number (double)`|-
+|[[name]]`name`|`String`|-
+|[[neQuadrant]]`neQuadrant`|`link:dataobjects.html#BoundingBox[BoundingBox]`|-
+|[[nodes]]`nodes`|`Array of link:dataobjects.html#Node[Node]`|-
+|[[nwQuadrant]]`nwQuadrant`|`link:dataobjects.html#BoundingBox[BoundingBox]`|-
+|[[seQuadrant]]`seQuadrant`|`link:dataobjects.html#BoundingBox[BoundingBox]`|-
+|[[swQuadrant]]`swQuadrant`|`link:dataobjects.html#BoundingBox[BoundingBox]`|-
+|[[tags]]`tags`|`String`|-
+|===
+
+[[BoundingBox]]
+== BoundingBox
+
+++++
+ BoundingBox implementation.
+++++
+'''
+
+[cols=">25%,^25%,50%"]
+[frame="topbot"]
+|===
+^|Name | Type ^| Description
+|[[maxLat]]`maxLat`|`Number (double)`|-
+|[[maxLon]]`maxLon`|`Number (double)`|-
+|[[minLat]]`minLat`|`Number (double)`|-
+|[[minLon]]`minLon`|`Number (double)`|-
+|[[neQuadrant]]`neQuadrant`|`link:dataobjects.html#BoundingBox[BoundingBox]`|-
+|[[nwQuadrant]]`nwQuadrant`|`link:dataobjects.html#BoundingBox[BoundingBox]`|-
+|[[seQuadrant]]`seQuadrant`|`link:dataobjects.html#BoundingBox[BoundingBox]`|-
+|[[swQuadrant]]`swQuadrant`|`link:dataobjects.html#BoundingBox[BoundingBox]`|-
+|===
+
+[[Relation]]
+== Relation
+
+++++
+ OSM Relation
+++++
+'''
+
+[cols=">25%,^25%,50%"]
+[frame="topbot"]
+|===
+^|Name | Type ^| Description
+|[[id]]`id`|`Number (int)`|-
+|[[member]]`member`|`link:dataobjects.html#Member[Member]`|-
+|[[tags]]`tags`|`String`|-
+|===
+
+[[Node]]
+== Node
+
+++++
+ OSM Node
+++++
+'''
+
+[cols=">25%,^25%,50%"]
+[frame="topbot"]
+|===
+^|Name | Type ^| Description
+|[[lat]]`lat`|`Number (double)`|-
+|[[layer]]`layer`|`Number (int)`|-
+|[[lon]]`lon`|`Number (double)`|-
+|[[tags]]`tags`|`String`|-
+|===
+

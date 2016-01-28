@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vert.x - Kambi 2016</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="css/leaflet.css"/>
+  <script src="js/vendor/leaflet.js"></script>
+  <script src="js/vendor/sockjs.min.js"></script>
+  <script src="js/vendor/vertx-eventbus.js"></script>
+  <script src="js/vendor/vertx-microservice-workshop-js/data_storage_service-proxy.js"></script>
+
+  <style>
+    body {
+      padding: 0;
+      margin: 0;
+    }
+
+    html, body, #map {
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+<div id="map"></div>
+<script>
+  // bridge directly to the data storage service
+  var eb = new EventBus(window.location.protocol + '//' + window.location.host + '/eventbus');
+  var storage = new DataStorageService(eb, 'vertx.checkin');
+
+  var map = L.map('map').setView([59.33459, 18.063240], 13);
+  var popup = L.popup();
+
+  L.tileLayer(window.location.protocol + '//' + window.location.host + '/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>'
+  }).addTo(map);
+
+  eb.onopen = function () {
+
+    eb.registerHandler('vertx.checkin.announce', function (err, msg) {
+      if (!err) {
+        var marker = L.marker([msg.body.lat, msg.body.lon]).addTo(map);
+        marker.bindPopup(msg.body.name);
+      }
+    });
+
+    map.on('click', function (e) {
+      popup
+          .setLatLng(e.latlng)
+          .setContent("Checkin:<br><input type='text' id='me'><input type='button' onclick='checkin(" + e.latlng.lat + "," + e.latlng.lng + ")'>")
+          .openOn(map);
+    });
+  };
+
+  function checkin(lat, lng) {
+    storage.checkin(document.getElementById("me").value, lat, lng, function (err) {
+      if (err) {
+        console.error(err);
+      }
+    });
+  }
+</script>
+</body>
+</html>
