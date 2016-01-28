@@ -1,0 +1,172 @@
+/**
+ * Theme for devoxx.
+ */
+// Default mixins and settings -----------------
+@import "../template/mixins";
+@import "../template/settings";
+// ---------------------------------------------
+
+// Import the fonts.
+@import url(../../lib/font/devoxx/devoxx-fonts.css);
+
+/**
+ * Solarized colors by Ethan Schoonover
+ */
+html * {
+  color-profile: sRGB;
+  rendering-intent: auto;
+}
+
+// My colors
+$base03: #892079;
+$base02: #853299;
+$base01: #002b36;
+$base00: #657b83;
+$base0: #839496;
+$base1: #93a1a1;
+$base2: #eee8d5;
+$base3: #ffffff;
+$yellow: #b58900;
+$orange: #cb4b16;
+$red: #dc322f;
+$magenta: #d33682;
+$violet: #6c71c4;
+$blue: #268bd2;
+$cyan: #2aa198;
+$green: #859900;
+
+// Override theme settings (see ../template/settings.scss)
+$mainColor: $base00;
+$headingColor: $base01;
+$headingTextShadow: none;
+$backgroundColor: $base3;
+$linkColor: $blue;
+$linkColorHover: lighten($linkColor, 20%);
+$selectionBackgroundColor: $violet;
+$mainFont: 'Kalam', cursive;
+$headingFont: 'Fredericka the Great', cursive;
+$heading1Size: 2.5em;
+$heading2Size: 2em;
+$heading3Size: 1.25em;
+$heading4Size: 1.00em;
+
+// Background generator
+// @mixin bodyBackground() {
+// 	@include radial-gradient( rgba($base3,1), rgba(lighten($base3, 20%),1) );
+// }
+
+// Theme template ------------------------------
+@import "../template/theme";
+// ---------------------------------------------
+
+.reveal section img {
+  border: none;
+  box-shadow: none;
+}
+
+.vertical-align {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+
+
+.reveal h1.hand {
+  font-family: 'Kalam', cursive;
+}
+
+.reveal h2.hand {
+  font-family: 'Kalam', cursive;
+}
+
+.reveal h3.hand {
+  font-family: 'Kalam', cursive;
+}
+
+.reveal h4.hand {
+  font-family: 'Kalam', cursive;
+}
+
+.reveal h5.hand {
+  font-family: 'Kalam', cursive;
+}
+
+.reveal .purple {
+  color: $base03;
+}
+
+.reveal .code {
+  font-family: "Inconsolata";
+}
+
+.reveal div.frame {
+  background-image: url(img/frame.png);
+  padding: 60px;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.frame-inner {
+  display: table-cell;
+  text-align: left;
+}
+
+.frame-inner h4 {
+  text-transform: none;
+}
+
+.reveal .progress span {
+  background: $base03;
+}
+
+.reveal ul {
+  display: inherit;
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.reveal ul ul {
+  list-style-type: none;
+}
+
+.reveal ul li {
+  padding-left: 1em;
+  text-indent: -.7em;
+}
+
+.reveal ul li:before {
+  content: "▪ ";
+  color: $base03;
+}
+
+.reveal ul ul li:before {
+  content: "▸ ";
+  color: $base03;
+}
+
+.main-instruction {
+  color: #002b36;
+}
+
+.reveal code {
+  font-size: 80%
+}
+
+.reveal pre code {
+  font-size: 100%;
+}
+
+.reveal .title-footer {
+  background: #FF9933;
+  text-align: left;
+  color: $base01;
+  font-size: large;
+  padding:10px;
+  border-radius: 3px;
+}
+
+
+

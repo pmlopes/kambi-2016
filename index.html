@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>vert.x - Kambi 2016</title>
+
+    <meta name="description" content="Workshop vert.x and micro-services">
+    <meta name="author" content="Clement Escoffier, Paulo Lopes">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="lib/css/bootstrap.css" id="theme">
+    <link rel="stylesheet" href="css/theme/vertx.css">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<div class="reveal">
+
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+        <section>
+            <div class="container-fluid">
+                <div class="row  vertical-align">
+                    <div class="col-md-2">
+                        <img src="css/theme/img/kambi-logo.png" style="box-shadow: none;
+                        border: none"/>
+                    </div>
+                    <div class="col-md-10">
+                        <div>
+                            <h1>Vert<span style="letter-spacing: 6px;" class="purple">.X</span></h1>
+
+                            <h3>full throttle applications</h3>
+
+                            <p>
+                                <small>Paulo Lopes</small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <footer class="title-footer">#vertx #kambi
+                    <span class="pull-right">plopes@redhat.com</span></footer>
+            </div>
+        </section>
+
+        <section>
+            <h1>Welcome</h1>
+
+            <h3 class="hand">Did you already use vert.x ?</h3>
+
+            <h3 class="hand">Did you hear about micro-services architecture ?</h3>
+
+            <h3 class="hand">Did you already deployed micro-services based applications ?</h3>
+        </section>
+
+        <section>
+            <h1>Outline</h1>
+
+            <ul style="list-style-image: none">
+                <li>Micro-services: why and what</li>
+                <li>vert.x in 10 minutes</li>
+                <li>Presentation of the application: <em>Check-in</em></li>
+                <li>You first service</li>
+                <li>Composing vert.x service</li>
+                <li>Providing a REST api</li>
+            </ul>
+
+            <aside class="notes">
+                This is intended to be modified dynamically...
+            </aside>
+        </section>
+
+        <section>
+            <h1>Micro-services: why and what</h1>
+        </section>
+
+        <section>
+            <h1>
+                <span style="font-size: medium">Because it</span>
+                <span style="font-size: large">grows</span>
+                <span style="font-size: x-large">faster</span>
+                <span style="font-size: xx-large">than you</span>
+                <span style="font-size: larger">think</span></h1>
+            <img src="img/micro-services/expansion.png" style="width:100%">
+        </section>
+
+        <section>
+            <h1>Becoming touchy</h1>
+            <img src="img/micro-services/jenga.png">
+        </section>
+
+        <section>
+            <h2>Decentralization</h2>
+
+            <p>To keep things under control, makes them:</p>
+            <p>small</p>
+            <p>loosely-coupled</p>
+            <p>highly coherent</p>
+        </section>
+
+        <section>
+            <h1>Process</h1>
+
+            <img src="img/micro-services/extraction.png" width="500">
+        </section>
+
+        <section>
+            <h1>Process</h1>
+
+            <img src="img/micro-services/micro-service-1.png" width="500">
+        </section>
+
+        <section>
+            <h1>Process</h1>
+
+            <img src="img/micro-services/extraction-2.png" width="500">
+        </section>
+
+        <section>
+            <h1>Process</h1>
+
+            <img src="img/micro-services/micro-service-2.png" width="500">
+        </section>
+
+        <section>
+            <h2>A few steps later</h2>
+
+            <img src="img/micro-services/micro-service-3.png" width="600">
+        </section>
+
+        <section>
+            <h2>Not a silver bullet</h2>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-5">
+
+                        <h3 class="purple column-header">Pro</h3>
+
+                        <h5 class="hand">Asynchronous evolution</h5>
+                        <h5 class="hand">Better local understanding</h5>
+                        <h5 class="hand">Scalability</h5>
+                        <h5 class="hand">Integration / Polyglot</h5>
+                    </div>
+                    <div class="col-md-1">
+                        &nbsp;
+                    </div>
+                    <div class="col-md-5 fragment">
+                        <h3 class="purple column-header">Cons</h3>
+                        <h5 class="hand">Global debug</h5>
+                        <h5 class="hand">Deployment</h5>
+                        <h5 class="hand">Latency (multi-hop)</h5>
+                        <h5 class="hand">Dynamic availability</h5>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h1 class="hand">Micro-service</h1>
+            <h1 style="color: #d50000" class="hand">!=</h1>
+            <h1 class="hand">container</h1>
+        </section>
+
+        <section>
+            <h1 class="hand">Micro-service</h1>
+            <h1 style="color: #d50000" class="hand">!=</h1>
+            <h1 class="hand">REST</h1>
+        </section>
+
+        <section>
+            <h1>Vert<span style="letter-spacing: 6px;" class="purple">.X</span></h1>
+
+            <h3 class="hand">a toolkit to build micro-service applications</h3>
+
+        </section>
+
+        <section>
+            <h1>Vert<span style="letter-spacing: 6px;" class="purple">.X</span></h1>
+
+            <h3 class="hand fragment">Framework</h3>
+
+            <h3 class="hand fragment">Unopiniated</h3>
+
+            <h3 class="hand fragment">Reactive</h3>
+
+            <h3 class="hand fragment">Polyglot</h3>
+
+            <h3 class="hand fragment">Distributed</h3>
+
+        </section>
+
+        <section>
+            <h2>Reactor-pattern</h2>
+
+            <img src="img/vertx/reactor-pattern.png"/>
+
+        </section>
+
+        <section>
+            <h2>Reactor-pattern</h2>
+
+            <img src="img/vertx/reactor-pattern-blocking.png"/>
+
+        </section>
+
+        <section>
+            <h2>Reactor-pattern</h2>
+
+            <img src="img/vertx/reactor-event-loop.png"/>
+
+        </section>
+
+        <section>
+            <h2>Reactor-pattern</h2>
+
+            <img src="img/vertx/reactor-event-loop-many-events.png"/>
+
+        </section>
+
+        <section>
+            <h2>What is <img src="img/vertx/event-dark-blue.png"
+                             style="display: inline-table; vertical-align: bottom;"/> ?
+            </h2>
+            <h4 class="hand">A Message</h4>
+            <h4 class="hand">A Notification</h4>
+            <h4 class="hand">A HTTP Request</h4>
+            <h4 class="hand">A command</h4>
+            <h4 class="hand">A file</h4>
+            <h4 class="hand">A result, an error</h4>
+        </section>
+
+        <section>
+            <h2>Asynchronous Development Model</h2>
+            <pre><code class="hljs">void operation(param1, param2, Handler&lt;T&gt; handler) {
+  // ...
+  T t = ...
+  handler.handle(t)
+  // ...
+}</code></pre>
+            <pre class="fragment"><code class="hljs">void handle(T t) {
+  // do something with t
+}</code></pre>
+            <pre class="fragment"><code class="hljs">operation(1, 2, t -> System.out.println(t));</code></pre>
+
+        </section>
+
+        <section>
+            <h2>Asynchronous Development Model</h2>
+            <img src="img/vertx/http-example.png">
+        </section>
+
+        <section>
+            <h2>The event bus</h2>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="img/vertx/event-bus-ptp.png"/>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="frame">
+                            <div class="frame-inner">
+                                <h4 class="hand">Point to Point</h4>
+                                <h4 class="hand">Publish / Subscribe</h4>
+                                <h4 class="hand">Request / Response</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>The event bus</h2>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="img/vertx/event-bus-ps.png"/>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="frame">
+                            <div class="frame-inner">
+                                <h4 class="hand">Point to Point</h4>
+                                <h4 class="hand">Publish / Subscribe</h4>
+                                <h4 class="hand">Request / Response</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>The event bus</h2>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="img/vertx/event-bus-rr.png"/>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="frame">
+                            <div class="frame-inner">
+                                <h4 class="hand">Point to Point</h4>
+                                <h4 class="hand">Publish / Subscribe</h4>
+                                <h4 class="hand">Request / Response</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>The event bus</h2>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-7">
+                        <img src="img/vertx/event-bus-distributed.png"/>
+                    </div>
+
+                    <div class="col-md-5">
+                        <div class="frame">
+                            <div class="frame-inner">
+                                <h4 class="hand">The event bus allows
+                                    distributed communication.
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>The event bus</h2>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="img/vertx/event-bus-bridge.png"/>
+                </div>
+                <div class="col-md-1">
+                    &nbsp;
+                </div>
+                <div class="col-md-5">
+                    <div class="frame" style="padding: 50px">
+                        <div class="frame-inner">
+                            <h4 class="hand">Almost anything <br/>can send / receive messages
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>Verticles <br/> An agent-like model</h2>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="img/vertx/verticle.png"/>
+                    </div>
+                    <div class="col-md-1">
+                        &nbsp;
+                    </div>
+                    <div class="col-md-5">
+                        <div class="frame" style="padding: 50px">
+                            <div class="frame-inner">
+                                <h4 class="hand">Verticles are chunks of code that get deployed and run by Vert.x.</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <pre><code class="hljs java">vertx.deployVerticle("my.verticle");</code></pre>
+        </section>
+
+        <section>
+            <h2>Verticles <br/> An agent-like model</h2>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-8">
+                        <img src="img/vertx/verticle-fail-over.png"/>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="frame" style="padding: 35px">
+                            <div class="frame-inner">
+                                <h4 class="hand" >
+                                    Dead verticles are restarted on a running node.
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <pre><code class="hljs java">vertx.deployVerticle("my.verticle"),
+                new DeploymentOptions().setHA(true));</code></pre>
+        </section>
+
+        <section data-background="img/vertx/eventbus-alone.png" data-background-size="500px">
+            <h2>Polyglot</h2>
+            <br/>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-5">
+                        <pre><code class="hljs java">EventBus eb =
+vertx.eventBus();
+eb.publish("some-topic",
+  "Some data from Java");</code></pre>
+                    </div>
+                    <div class="col-md-2">
+                        &nbsp;
+                    </div>
+                    <div class="col-md-5">
+                        <pre><code class="hljs javascript">var eb = vertx.eventBus();
+eb.publish("some-topic",
+  "Some data from JS");</code></pre>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <pre><code class="hljs ruby">eb = $vertx.event_bus()
+eb.publish("some-topic",
+  "Some data from Ruby")</code></pre>
+                    </div>
+                    <div class="col-md-2">
+                        &nbsp;
+                    </div>
+                    <div class="col-md-5">
+                        <pre><code class="hljs groovy">def eb = vertx.eventBus()
+eb.publish("some-topic",
+  "Some data from Groovy")</code></pre>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>vert.x in 1 slide</h2>
+            <img src="img/vertx/vertx-1-slide.png"/>
+        </section>
+
+        <section>
+            <h1>Vert<span style="letter-spacing: 6px;" class="purple">.X</span><br/>&amp;<br/>Micro-Services</h1>
+        </section>
+
+        <section>
+            <img src="img/vertx/stack.png"/>
+        </section>
+
+        <section>
+            <h2>From verticles to micro-services</h2>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="img/vertx/verticles-interaction.png"/>
+                    </div>
+                    <div class="col-md-1">
+                        &nbsp;
+                    </div>
+                    <div class="col-md-5">
+                        <div class="frame" style="padding: 50px">
+                            <div class="frame-inner">
+                                <h4 class="hand">Verticles are loosely-coupled.</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>From verticles to micro-services</h2>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-7">
+                        <img src="img/vertx/verticles-fat-jar.png"/>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="frame" style="padding: 50px">
+                            <div class="frame-inner">
+                                <h4 class="hand">Verticles can be deployed individually.</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>From verticles to micro-services</h2>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-7">
+                        <img src="img/vertx/verticles-fat-jar.png"/>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="frame" style="padding: 50px">
+                            <div class="frame-inner">
+                                <h4 class="hand">Verticles can <br/>evolve<br/> asynchronously.</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>From verticles to micro-services</h2>
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-7">
+                        <img src="img/vertx/verticles-fat-jar.png"/>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="frame" style="padding: 50px">
+                            <div class="frame-inner">
+                                <h4 class="hand">Micro-services interacts using the event bus.</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h1>vert<span class="purple">check</span>in</h1>
+        </section>
+
+        <section>
+            <h2>vert<span class="purple">2</span>go</h2>
+            <p>Micro-Service application</p>
+            <p>Storage: MongoDB</p>
+            <p>Service invocation protocol: Event Bus proxies, REST</p>
+            <p>UI: Leaflet.js, SockJS</p>
+        </section>
+
+        <section>
+            <h1 class="hand">That's all folks!</h1>
+        </section>
+
+    </div> <!-- end of slides -->
+</div> <!-- end of reveal -->
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: false,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+        backgroundTransition: 'slide',
+
+        // Optional reveal.js plugins
+        dependencies: [
+            { src: 'socket.io/socket.io.js', async: true },
+            { src: 'plugin/notes-server/client.js', async: true },
+
+            {
+                src: 'lib/js/classList.js', condition: function () {
+                return !document.body.classList;
+            }
+            },
+            {
+                src: 'plugin/markdown/marked.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: 'plugin/markdown/markdown.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            }
+            },
+            {
+                src: 'plugin/highlight/highlight.js', async: true, condition: function () {
+                return !!document.querySelector('pre code');
+            }, callback: function () {
+                hljs.initHighlightingOnLoad();
+            }
+            },
+            {src: 'plugin/zoom-js/zoom.js', async: true},
+            {src: 'plugin/notes/notes.js', async: true}
+        ]
+    });
+
+</script>
+
+</body>
+</html>

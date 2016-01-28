@@ -1,0 +1,56 @@
+/*@font-face {*/
+  /*font-family: 'Cabin Sketch';*/
+  /*font-style: normal;*/
+  /*font-weight: 400;*/
+  /*src: local('Cabin Sketch Regular'), local('CabinSketch-Regular'), url(https://fonts.gstatic.com/s/cabinsketch/v8/d9fijO34zQajqQvl3YHRCYnF5uFdDttMLvmWuJdhhgs.ttf) format('truetype');*/
+/*}*/
+/*@font-face {*/
+  /*font-family: 'Cabin Sketch';*/
+  /*font-style: normal;*/
+  /*font-weight: 700;*/
+  /*src: local('CabinSketch Bold'), local('CabinSketch-Bold'), url(https://fonts.gstatic.com/s/cabinsketch/v8/ki3SSN5HMOO0-IOLOj069H06qf9KHRHwsVx7iw5MXmY.ttf) format('truetype');*/
+/*}*/
+@font-face {
+  font-family: 'Fredericka the Great';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Fredericka the Great'), local('FrederickatheGreat'), url(frederika-the-great.ttf) format('truetype');
+}
+/*@font-face {*/
+  /*font-family: 'Indie Flower';*/
+  /*font-style: normal;*/
+  /*font-weight: 400;*/
+  /*src: local('Indie Flower'), local('IndieFlower'), url(indie-flower.ttf) format('truetype');*/
+/*}*/
+@font-face {
+  font-family: 'Kalam';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Kalam Light'), local('Kalam-Light'), url(kalam-light.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Kalam';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Kalam'), local('Kalam-Regular'), url(kalam-regular.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Kalam';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Kalam Bold'), local('Kalam-Bold'), url(karam-bold.ttf) format('truetype');
+}
+/*@font-face {*/
+  /*font-family: 'Slabo 27px';*/
+  /*font-style: normal;*/
+  /*font-weight: 400;*/
+  /*src: local('Slabo 27px'), local('Slabo27px-Regular'), url(https://fonts.gstatic.com/s/slabo27px/v3/PuwvqkdbcqU-fCZ9Ed-b7S3USBnSvpkopQaUR-2r7iU.ttf) format('truetype');*/
+/*}*/
+
+@font-face {
+  font-family: 'Inconsolata';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Inconsolata'), url(inconsolata.ttf) format('truetype');
+}
+
